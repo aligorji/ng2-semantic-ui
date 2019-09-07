@@ -199,10 +199,12 @@ export class SuiPopup implements IPopup {
             // Cancel the closing timer.
             clearTimeout(this.closingTimeout);
             // Start the closing timer, that fires the `onClose` event after the transition duration number of milliseconds.
-            this.closingTimeout = window.setTimeout(() => this.onClose.emit(), this.config.transitionDuration);
+            this.closingTimeout = window.setTimeout(() => {
+                this.onClose.emit();
+                // Finally, set the popup to be closed.
+                this._isOpen = false;
+            }, this.config.transitionDuration);
 
-            // Finally, set the popup to be closed.
-            this._isOpen = false;
         }
     }
 
