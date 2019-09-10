@@ -56,6 +56,9 @@ export abstract class SuiPopupController implements IPopup, OnDestroy {
     }
 
     public open():void {
+        if (this.popup.isOpen) {
+            return;
+        }
         // Attach the generated component to the current application.
         this._componentFactory.attachToApplication(this._componentRef);
 
@@ -85,6 +88,9 @@ export abstract class SuiPopupController implements IPopup, OnDestroy {
     }
 
     public close():void {
+        if (!this.popup.isOpen) {
+            return;
+        }
         // Cancel the opening timer to stop the popup opening after close has been called.
         clearTimeout(this._openingTimeout);
 
