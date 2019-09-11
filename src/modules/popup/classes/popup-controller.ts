@@ -87,12 +87,13 @@ export abstract class SuiPopupController implements IPopup, OnDestroy {
         }
     }
 
-    public close():void {
+    public close(): void {
+        // Cancel the opening timer to stop the popup opening after close has been called.
+        clearTimeout(this._openingTimeout);
+
         if (!this.popup.isOpen) {
             return;
         }
-        // Cancel the opening timer to stop the popup opening after close has been called.
-        clearTimeout(this._openingTimeout);
 
         if (this._componentRef) {
             // Start popup close transition.
