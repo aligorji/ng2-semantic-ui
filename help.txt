@@ -8,6 +8,6 @@ cd dist
 
 npm init --scope=aligorji  
 
-//1.0.7-0.10.0-alpha.6
+//1.0.8-0.10.0-alpha.6
 
 npm publish --access=public

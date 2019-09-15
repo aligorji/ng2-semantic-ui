@@ -19,6 +19,7 @@ export interface IPopupConfig {
     text?:string;
     placement?:PositioningPlacement;
     trigger?:PopupTrigger;
+    enable?:boolean;
     isInverted?:boolean;
     delay?:number;
     isBasic?:boolean;
@@ -33,6 +34,7 @@ export class PopupConfig implements IPopupConfig {
     public text?:string;
     public placement:PositioningPlacement;
     public trigger:PopupTrigger;
+    public enable:boolean;
     public isInverted:boolean;
     public delay:number;
     public isBasic:boolean;
@@ -46,6 +48,7 @@ export class PopupConfig implements IPopupConfig {
     constructor(defaults:IPopupConfig = {}) {
         this.placement = PositioningPlacement.TopLeft;
         this.trigger = PopupTrigger.Hover;
+        this.enable = true;
         this.isInverted = false;
         this.delay = 0;
         this.isBasic = false;

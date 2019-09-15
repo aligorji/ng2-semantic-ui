@@ -24,6 +24,11 @@ export class SuiPopupDirective<T> extends SuiPopupTemplateController<T> {
     }
 
     @Input()
+    public set popupEnable(enable:boolean) {
+        this.popup.config.enable = Util.DOM.parseBooleanAttribute(enable);
+    }
+
+    @Input()
     public set popupInverted(inverted:boolean) {
         this.popup.config.isInverted = Util.DOM.parseBooleanAttribute(inverted);
     }

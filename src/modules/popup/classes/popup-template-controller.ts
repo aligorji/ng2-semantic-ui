@@ -1,6 +1,6 @@
 import { TemplateRef, Renderer2, ElementRef } from "@angular/core";
 import { SuiPopupController, IPopup } from "./popup-controller";
-import { ITemplateRefContext, SuiComponentFactory, IImplicitContext } from "../../../misc/util/internal";
+import { SuiComponentFactory, IImplicitContext } from "../../../misc/util/internal";
 import { PopupConfig, IPopupConfig } from "./popup-config";
 
 const templateRef = TemplateRef;
@@ -41,6 +41,10 @@ export class SuiPopupTemplateController<T> extends SuiPopupController {
     }
 
     public open():void {
+        if (!this.popup.config.enable) {
+            return;
+        }
+
         // If there is a template, inject it into the view.
         if (this.template) {
             this.popup.templateSibling.clear();
