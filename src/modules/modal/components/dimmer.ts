@@ -18,9 +18,12 @@ export class SuiModalDimmer extends SuiDimmer {
     @HostBinding("class.modals")
     public readonly hasClasses:boolean;
 
-    constructor(renderer:Renderer2, element:ElementRef, changeDetector:ChangeDetectorRef) {
+    constructor(renderer:Renderer2, public element:ElementRef, changeDetector:ChangeDetectorRef) {
         super(renderer, element, changeDetector);
         this.hasClasses = true;
         this.isClickable = false;
+    }
+    public scrollTop():void {
+        this.element.nativeElement.scrollTop = 0;
     }
 }
