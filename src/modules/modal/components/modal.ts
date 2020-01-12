@@ -11,7 +11,7 @@ import { ModalConfig, ModalSize } from "../classes/modal-config";
     selector: "sui-modal",
     template: `
     <div class="dimmable dimmed"
-    [class.scrolling]="_mustScroll && _autoScroll">
+    [class.scrolling]="_mustScroll && isAutoScroll">
 <!-- Page dimmer for modal background. -->
 <sui-modal-dimmer [ngClass]="{'top aligned': !isCentered}" 
                   [class.inverted]="isInverted"
@@ -106,8 +106,6 @@ export class SuiModal<T, U> implements OnInit, AfterViewInit {
 
     // Whether the modal currently is displaying a scrollbar.
     public _mustScroll: boolean;
-    // Whether or not the modal should always display a scrollbar.
-    public _autoScroll: boolean;
 
     @Input()
     public get mustScroll(): boolean {
@@ -116,8 +114,6 @@ export class SuiModal<T, U> implements OnInit, AfterViewInit {
 
     public set mustScroll(mustScroll: boolean) {
         this._mustScroll = mustScroll;
-        this._autoScroll = false;
-        this.updateScroll();
     }
 
     // Whether the modal shows against a light background.
@@ -208,7 +204,6 @@ export class SuiModal<T, U> implements OnInit, AfterViewInit {
         }
 
         const element = this._modalElement.nativeElement as Element;
-        setTimeout(() => this.updateScroll());
 
         // Focus any element with [autofocus] attribute.
         const autoFocus = element.querySelector("[autofocus]") as HTMLElement | null;
@@ -267,7 +262,7 @@ export class SuiModal<T, U> implements OnInit, AfterViewInit {
     }
 
     // Decides whether the modal needs to reposition to allow scrolling.
-    private updateScroll(): void {
+    get isAutoScroll(): boolean {
 
         // _mustAlwaysScroll works by stopping _mustScroll from being automatically updated, so it stays `true`.
         if (this._mustScroll && this._modalElement) {
@@ -278,8 +273,9 @@ export class SuiModal<T, U> implements OnInit, AfterViewInit {
             const element = this._modalElement.nativeElement as Element;
 
             // The modal must scroll if the window height is smaller than the modal height + both margins.
-            this._autoScroll = window.innerHeight < element.clientHeight + margin * 2;
+            return window.innerHeight < element.clientHeight + margin * 2;
         }
+        return false;
     }
 
     dimmerMouseDown = false;
@@ -310,8 +306,4 @@ export class SuiModal<T, U> implements OnInit, AfterViewInit {
         }
     }
 
-    @HostListener("window:resize")
-    public onDocumentResize(): void {
-        this.updateScroll();
-    }
 }
