@@ -34,7 +34,7 @@ import { ModalConfig, ModalSize } from "../classes/modal-config";
          #modal>
 
         <!-- Configurable close icon -->
-        <i class="close icon" *ngIf="isClosable" (click)="close()"></i>
+        <i class="close icon" *ngIf="isClosable && !hideCloseButton" (click)="close()"></i>
         <!-- <ng-content> so that <sui-modal> can be used as a normal component. -->
         <ng-content></ng-content>
         <!-- @ViewChild reference so we can insert elements beside this div. -->
@@ -49,6 +49,10 @@ export class SuiModal<T, U> implements OnInit, AfterViewInit {
     @Input()
     // Determines whether the modal can be closed with a close button, clicking outside, or the escape key.
     public isClosable: boolean;
+
+    @Input()
+    // Determines whether the modal can be closed with a close button, clicking outside, or the escape key.
+    public hideCloseButton: boolean;
 
     @Input()
     // Value to deny with when closing via `isClosable`.
@@ -218,6 +222,7 @@ export class SuiModal<T, U> implements OnInit, AfterViewInit {
     // Updates the modal with the specified configuration.
     public loadConfig<V>(config: ModalConfig<V, T, U>): void {
         this.isClosable = config.isClosable;
+        this.hideCloseButton = config.hideCloseButton;
         this.closeResult = config.closeResult;
 
         this.size = config.size;

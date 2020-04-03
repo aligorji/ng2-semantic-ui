@@ -15,6 +15,8 @@ export const ModalSize = {
 export class ModalConfig<T, U = undefined, V = undefined> {
     // Determines whether the modal can be closed with a close button, clicking outside, or the escape key.
     public isClosable:boolean;
+    // close button
+    public hideCloseButton:boolean;
     // Value to deny with when closing via `isClosable`.
     public closeResult:V;
 

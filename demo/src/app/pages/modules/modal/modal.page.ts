@@ -244,6 +244,7 @@ export class ModalExampleTemplate {
 
         config.closeResult = "dismissed";
         config.context = { data: dynamicContent };
+        config.hideCloseButton = true;
 
         this.modalService
             .open(config)
